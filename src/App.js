@@ -12,6 +12,7 @@ function App() {
   let [logo, setLogo] = useState('ReactBlog');
   let [like, sumLike] = useState([0,0,0]); 
   let [modal, setModal] = useState(false);
+  let [titles,setTitle] = useState(0);
 
   // map의 기능
   // 1. array 자료 갯수만큼 함수안의 코드를 실행해줌
@@ -50,7 +51,9 @@ function App() {
         a.map(function(e, i){
           return (
           <div className='list' key={i}>
-          <h4 onClick={()=>{setModal(!modal)}}>{a[i]}
+          <h4 onClick={()=>{setModal(!modal);
+                            setTitle(i);
+            }}>{a[i]}
           <span onClick={()=>{
               let copyLike = [...like];
               copyLike[i] = 1;
@@ -64,7 +67,7 @@ function App() {
 
       
       {
-        modal == true ? <Modal color={'skyblue'} change={b} title={a} /> : null
+        modal == true ? <Modal color={'skyblue'} titles={titles} change={b} title={a} /> : null
       }
       
 
@@ -77,7 +80,7 @@ function App() {
 function Modal(props){
   return (
       <div className="modal" style={{background : props.color}}>
-        <h4>{props.title[0]}</h4>
+        <h4>{props.title[props.titles]}</h4>
         <p>날짜</p>
         <p>상세내용</p>
         <button onClick={()=>{
